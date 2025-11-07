@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiny Hunter - Gen 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Shiny Hunter</h1>
+        
+        <!-- Game Selector -->
+        <div class="game-selector">
+            <label for="game">Select Your Game:</label>
+            <select id="game">
+                <option value="gold">Gold</option>
+                <option value="silver">Silver</option>
+                <option value="crystal">Crystal</option>
+                <option value="ruby">Ruby</option>
+                <option value="sapphire">Sapphire</option>
+                <option value="emerald">Emerald</option>
+                <option value="leafgreen">Leafgreen</option>
+                <option value="firered">Firered</option>
+                <option value="diamond">Diamond</option>
+                <option value="pearl">Pearl</option>
+                <option value="platinum">Platinum</option>
+                <option value="black">Black</option>
+                <option value="white">White</option>
+                <option value="black2">Black 2</option>
+                <option value="white2">White 2</option>
+                <option value="x">X</option>
+                <option value="y">Y</option>
+                <option value="sun">Sun</option>
+                <option value="moon">Moon</option>
+                <option value="ultrasun">Diamond</option>
+                <option value="ultramoon">Pearl</option>
+                <option value="sword">Sword</option>
+                <option value="shield">Diamond</option>
+                <option value="brilliantdiamond">Brilliant Diamond</option>
+                <option value="shiningpearl">Shining Pearl</option>
+                <option value="scarlet">Scarlet</option>
+                <option value="violet">Violet</option>
+            </select>
+        </div>
+
+        <!--Shiny Charm Toggle-->
+        <div class="shiny-charm" id="shiny-charm-section">
+            <label for="charm">Shiny Charm?</label>
+            <input type="checkbox" id="shiny-charm-checkbox">
+        </div>
+
+        <!-- Hunting Method Selection -->
+        <div class="hunting-methods" id="hunting-methods-section">
+            <h3>Hunting Method:</h3>
+
+            <label>
+                <input type="radio" name="hunting-method" value="none" id="method-none" checked>
+                None
+            </label>
+
+            <label>
+                <input type="radio" name="hunting-method" value="masuda" id="method-masuda">
+                Masuda Method
+            </label>
+
+            <label>
+                <input type="radio" name="hunting-method" value="radar" id="method-radar">
+                Poke Radar
+            </label>
+
+            <label>
+                <input type="radio" name="hunting-method" value="fishing" id="method-fishing">
+                Chain Fishing
+            </label>
+        </div>
+
+
+        <!-- Shiny Odds Display -->
+        <div class="odds-display">
+            <h2>Shiny Odds: <span id="shiny-odds">1/8192</span></h2>
+        </div>
+
+        <!-- Radar Odds Display -->
+        <div class="radar-odds-display">
+            <h2>Current Chain Odds: <span id="radar-odds">???</span></h2>
+        </div>
+
+        <!-- Encounter Counter -->
+        <div class="counter-section">
+            <h2>Encounter Counter</h2>
+            <div class="counter-display" id="counter">0</div>
+            <div class="button-group">
+                <button id="decrement-btn">-1</button>
+                <button id="increment-btn">+1</button>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </div>
+
+        <!-- Chain Counter -->
+        <div class="chain-section">
+            <h2>Chain Counter</h2>
+            <div class="counter-display" id="chain-counter">0</div>
+            <div class="button-group">
+                <button id="decrement-chain-btn">-1</button>
+                <button id="increment-chain-btn">+1</button>
+                <button id="reset-chain-btn">Reset</button>
+            </div>
+        </div>
+
+        <!-- Pokemon Search -->
+        <div class="pokemon-search">
+            <input type="text" id="pokemon-search-field">
+            <button id="search-button">Search</button>
+            <div class="search-results" id="search-results"></div>
+        </div>
+
+        <div class="search-suggestions" id="suggestions">
+
+        </div>
+
+
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
