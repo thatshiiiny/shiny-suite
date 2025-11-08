@@ -15,6 +15,8 @@ const methodNone = document.getElementById('method-none')
 const methodMasuda = document.getElementById('method-masuda')
 const methodRadar = document.getElementById('method-radar')
 const methodFishing = document.getElementById('method-fishing')
+const methodSOS = document.getElementById('method-sos')
+const methodLetsGo = document.getElementById('method-letsgo')
 const pokemonSearch = document.getElementById('pokemon-search-field')
 const searchButton = document.getElementById('search-button')
 const searchResults = document.getElementById('search-results')
@@ -38,8 +40,10 @@ function incrementCounter() {
     const selectedMethod = document.querySelector('input[name="hunting-method"]:checked').value
     const isRadarActive = selectedMethod === 'radar'
     const isFishingActive = selectedMethod === 'fishing'
+    const isSosActive = selectedMethod === 'sos'
+    const isLetsGoActive = selectedMethod === 'letsgo'
 
-    if (isRadarActive || isFishingActive) {
+    if (isRadarActive || isFishingActive || isSosActive || isLetsGoActive) {
         chainCount++
         chainUp.textContent = chainCount
         updateGameInfo()  // Update odds display
@@ -96,6 +100,8 @@ function updateGameInfo() {
     const isMasudaActive = selectedMethod === 'masuda'
     const isRadarActive = selectedMethod === 'radar'
     const isFishingActive = selectedMethod === 'fishing'
+    const isSosActive = selectedMethod === 'sos'
+    const isLetsGoActive = selectedMethod === 'letsgo'
     
     console.log(gameData[selectedGame])
 
@@ -111,20 +117,46 @@ function updateGameInfo() {
 
 // Chaining Methods
 
-    if (isRadarActive || isFishingActive) {
+    if (isRadarActive || isFishingActive || isSosActive || isLetsGoActive) {
         let odds;
 
         if (isFishingActive) {
             // Chain Fishing odds (Gen 6+)
             // each chain adds +2 bonus shiny rolls (max of +40 at chain 20)
-            
+
         let bonusRolls = Math.min(chainCount * 2, 40)
         let charmBonus = isCharmActive ? 2 : 0
         let totalRolls = 1 + bonusRolls + charmBonus
-    
+
         let denominator = Math.floor(4096 / totalRolls)
         odds = `1/${denominator}`
         }
+        else if (isSosActive) {
+            // SOS Chain odds (Gen 7)
+            if (chainCount <= 10) {
+                odds = isCharmActive ? '1/1365' : '1/4096'
+            } else if (chainCount <= 20) {
+                odds = isCharmActive ? '1/820' : '1/1024'
+            } else if (chainCount <= 30) {
+                odds = isCharmActive ? '1/455' : '1/512'
+            } else {
+                odds = isCharmActive ? '1/273' : '1/315'
+            }
+        }
+
+                else if (isLetsGoActive) {
+            // Chain Catching odds (Let's Go)
+            if (chainCount <= 10) {
+                odds = isCharmActive ? '1/1365' : '1/4096'
+            } else if (chainCount <= 20) {
+                odds = isCharmActive ? '1/820' : '1/1024'
+            } else if (chainCount <= 30) {
+                odds = isCharmActive ? '1/455' : '1/512'
+            } else {
+                odds = isCharmActive ? '1/273' : '1/315'
+            }
+        }
+
         else {
             // Poke Radar odds based on chain length
             // Gen 6 (X/Y) has different odds than Gen 4
@@ -174,9 +206,23 @@ function updateGameInfo() {
         if (selectedMethod === 'fishing') methodNone.checked = true
     }
 
+    if (game.hasSOS) {
+        methodSOS.parentElement.style.display = 'block'
+    } else {
+        methodSOS.parentElement.style.display = 'none'
+        if (selectedMethod === 'sos') methodNone.checked = true
+    }
+
+    if (game.hasLetsGo) {
+    methodLetsGo.parentElement.style.display = 'block'
+    } else {
+    methodLetsGo.parentElement.style.display = 'none'
+    if (selectedMethod === 'letsgo') methodNone.checked = true
+    }
+
     // Show/hide radar odds display based on selected method
     const radarOddsSection = document.querySelector('.radar-odds-display')
-    if (isRadarActive || isFishingActive) {
+    if (isRadarActive || isFishingActive || isSosActive || isLetsGoActive) {
     radarOddsSection.style.display = 'block'
     } else {
     radarOddsSection.style.display = 'none'
@@ -237,6 +283,8 @@ methodNone.addEventListener('change', updateGameInfo)
 methodMasuda.addEventListener('change', updateGameInfo)
 methodRadar.addEventListener('change', updateGameInfo)
 methodFishing.addEventListener('change', updateGameInfo)
+methodSOS.addEventListener('change', updateGameInfo)
+methodLetsGo.addEventListener('change', updateGameInfo)
 searchButton.addEventListener('click', searchPokemon)
 pokemonSearch.addEventListener('input', showSuggestions)
 
